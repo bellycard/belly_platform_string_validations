@@ -58,8 +58,3 @@ BellyPlatform::Boolean.convert('yes')
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-
-
-
-
-`integer`,`int`,`boolean`,`date`,`timestamp`,`double`,`array_of_integers`,`array_of_ints`,`array_of_strings`,`snake_case`,`geopoint`,`string`
