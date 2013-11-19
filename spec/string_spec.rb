@@ -159,8 +159,8 @@ describe BellyPlatform::String do
         BellyPlatform::String.coerce('timestamp', 1376064517).should == "2013-08-09 11:08:37.000000000"
         BellyPlatform::String.coerce('timestamp', '2013-08-09 11:08:37').should == "2013-08-09 11:08:37.000000000"
         # added to patch broken timestamps in the iOS v3 release
-        BellyPlatform::String.coerce('timestamp', '2013-11-19 03:13:43 pm.391000000').should == "2013-11-19 03:13:43.391000000"
-        BellyPlatform::String.coerce('timestamp', '2013-11-19 03:13:43 am.391000000').should == "2013-11-19 03:13:43.391000000"
+        BellyPlatform::String.coerce('timestamp', '2013-11-19 03:13:43 pm.391000000').should == "2013-11-19 15:13:43.000000000"
+        BellyPlatform::String.coerce('timestamp', '2013-11-19 03:13:43 am.391000000').should == "2013-11-19 03:13:43.000000000"
       end
     end
   end

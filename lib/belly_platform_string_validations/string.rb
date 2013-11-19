@@ -39,7 +39,12 @@ module BellyPlatform
         return value unless value.present?
 
         # added to patch broken timestamps in the iOS v3 release
-        value.gsub!(/ pm.| am./, '.') if type == 'timestamp' && !value.is_a?(Integer)
+        if(type == 'timestamp' && !value.is_a?(Integer))
+          begin
+            value = Time.parse(value).to_i
+          rescue ArgumentError
+          end
+        end
 
         case type
         when 'integer', 'int'
