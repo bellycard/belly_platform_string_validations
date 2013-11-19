@@ -60,6 +60,11 @@ describe BellyPlatform::String do
       it "returns false for an invalid timestamp" do
         BellyPlatform::String.validate('timestamp', 'invalid-time').should be_false
       end
+
+      # added to patch broken timestamps in the iOS v3 release
+      it "returns true for a broken iOS timestamp" do
+        BellyPlatform::String.validate('timestamp', '2013-11-19 03:13:43 pm.391000000').should be_true
+      end
     end
 
     context "#array_of_integers" do
@@ -105,14 +110,14 @@ describe BellyPlatform::String do
     context "empty value" do
       it "returns value if value empty" do
         BellyPlatform::String.coerce('integer', '').should == ''
-        BellyPlatform::String.coerce('integer', nil).should == nil         
+        BellyPlatform::String.coerce('integer', nil).should == nil
       end
     end
 
     context "#integer" do
       it "coerces a string correctly" do
         BellyPlatform::String.coerce('integer', '123').should == 123
-        BellyPlatform::String.coerce('integer', 123).should == 123        
+        BellyPlatform::String.coerce('integer', 123).should == 123
       end
     end
 
@@ -120,17 +125,17 @@ describe BellyPlatform::String do
       it "coerces a boolean correctly" do
         BellyPlatform::String.coerce('boolean', 't').should == true
         BellyPlatform::String.coerce('boolean', 'true').should == true
-        BellyPlatform::String.coerce('boolean', true).should == true 
+        BellyPlatform::String.coerce('boolean', true).should == true
         BellyPlatform::String.coerce('boolean', 'f').should == false
         BellyPlatform::String.coerce('boolean', 'false').should == false
-        BellyPlatform::String.coerce('boolean', false).should == false        
+        BellyPlatform::String.coerce('boolean', false).should == false
       end
     end
 
     context "#double" do
       it "coerces a double correctly" do
         BellyPlatform::String.coerce('double', '123.45').should == 123.45
-        BellyPlatform::String.coerce('double', 123.45).should == 123.45     
+        BellyPlatform::String.coerce('double', 123.45).should == 123.45
       end
     end
 
@@ -153,6 +158,9 @@ describe BellyPlatform::String do
         BellyPlatform::String.coerce('timestamp', '1376064517').should == "2013-08-09 11:08:37.000000000"
         BellyPlatform::String.coerce('timestamp', 1376064517).should == "2013-08-09 11:08:37.000000000"
         BellyPlatform::String.coerce('timestamp', '2013-08-09 11:08:37').should == "2013-08-09 11:08:37.000000000"
+        # added to patch broken timestamps in the iOS v3 release
+        BellyPlatform::String.coerce('timestamp', '2013-11-19 03:13:43 pm.391000000').should == "2013-11-19 03:13:43.391000000"
+        BellyPlatform::String.coerce('timestamp', '2013-11-19 03:13:43 am.391000000').should == "2013-11-19 03:13:43.391000000"
       end
     end
   end

@@ -5,6 +5,9 @@ module BellyPlatform
         # return true if value not present
         return true unless value.present?
 
+        # added to patch broken timestamps in the iOS v3 release
+        value.gsub!(/ pm.| am./, '.') if type == 'timestamp'
+
         case type
         when 'integer', 'int'
           !!(value.to_s =~ /^-?\d*(,\d*)*$/)
@@ -28,12 +31,15 @@ module BellyPlatform
           !!(value =~ /^\[-?\d*(.\d*)\, ?-?\d*(.\d*)\]$/)
         when 'string'
           !value.nil?
-        end 
+        end
       end
 
       def coerce(type, value)
         # if value is nil or "", just return value
         return value unless value.present?
+
+        # added to patch broken timestamps in the iOS v3 release
+        value.gsub!(/ pm.| am./, '.') if type == 'timestamp' && !value.is_a?(Integer)
 
         case type
         when 'integer', 'int'
