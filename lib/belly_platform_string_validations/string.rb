@@ -6,7 +6,7 @@ module BellyPlatform
         return true unless value.present?
 
         # added to patch broken timestamps in the iOS v3 release
-        value.gsub!(/ pm.| am./, '.') if type == 'timestamp'
+        value.gsub!(/ pm.| am./, '.') if(type == 'timestamp' && !value.is_a?(Integer))
 
         case type
         when 'integer', 'int'
@@ -16,7 +16,7 @@ module BellyPlatform
         when 'date'
           !!(value =~ /\d{4}-\d{2}-\d{2}/)
         when 'timestamp'
-          !!(value =~ /^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}($|(\.\d+)$))|^(\d{10})$/)
+          !!(value.to_s =~ /^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}($|(\.\d+)$))|^(\d{10})$/)
         when 'double'
           !!(value.to_s =~ /^-?\d*.\d*$/)
         when 'array_of_integers', 'array_of_ints'

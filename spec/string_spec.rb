@@ -54,6 +54,7 @@ describe BellyPlatform::String do
     context "#timestamp" do
       it "returns true for a valid timestamp" do
         BellyPlatform::String.validate('timestamp', '1367520467').should be_true
+        BellyPlatform::String.validate('timestamp', 1367520467).should be_true
         BellyPlatform::String.validate('timestamp', '2013-03-13 17:10:55').should be_true
       end
 
