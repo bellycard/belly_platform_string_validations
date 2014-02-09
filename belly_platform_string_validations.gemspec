@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.version       = BellyPlatformStringValidations::VERSION
 
   gem.add_dependency 'rake'
-  gem.add_dependency 'octokit', '~> 1.25'
+  gem.add_dependency 'octokit'
   gem.add_dependency 'activesupport'
 
   gem.add_development_dependency "rspec"
